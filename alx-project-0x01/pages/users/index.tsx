@@ -3,8 +3,8 @@ import { UserProps } from "@/interfaces"
 import Header from "@/components/layout/Header"
 import React from "react"
 
-const Users: React.FC<UserProps[]> = ({ users }) => {
-    console.log(users)
+const Users: React.FC<UserProps[]> = ({ posts, }) => {
+    console.log(posts)
     return (
         <div className="flex flex-col h-screen">
             <Header />
@@ -15,8 +15,8 @@ const Users: React.FC<UserProps[]> = ({ users }) => {
                 </div>
                 <div className="grid grid-cols-3 gap-2 ">
                     {
-                        users?.map((user: UserProps, key: number) => (
-                            <UserCard {...user} key={key} />
+                        posts?.map((post: UserProps, key: number) => (
+                            <UserCard {...post} key={key} />
                         ))
                     }
                 </div>
@@ -24,17 +24,14 @@ const Users: React.FC<UserProps[]> = ({ users }) => {
         </div>
     )
 }
-
 export async function getStaticProps() {
     const response = await fetch("https://jsonplaceholder.typicode.com/users")
-    const users = await response.json()
+    const posts = await response.json()
 
     return {
         props: {
-            users
+            posts,
         }
     }
 }
-
-
-export default Users
+export default Users;
